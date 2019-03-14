@@ -1,0 +1,4 @@
+include moon_demo/schema.sql
+graft moon_demo/static
+graft moon_demo/templates
+global-exclude *.pyc

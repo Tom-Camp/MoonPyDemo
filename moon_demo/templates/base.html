@@ -1,0 +1,35 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - Moon Phases</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<header>
+  <section>
+    <img id="logo" src="{{ url_for('static', filename='Python.svg') }}" />
+    <h1 id="site-name">Python ProDev Demo</h1>
+  </section>
+  <nav>
+    <ul>
+      <li><a href="{{ url_for('blog.index') }}">Home</a></li>
+      <li><a href="{{ url_for('moon_page.moon_page') }}">Moon Phase</a></li>
+      {% if g.user %}
+        <li><span>{{ g.user['username'] }}</span>
+        <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+      {% else %}
+        <li><a href="{{ url_for('auth.register') }}">Register</a>
+        <li><a href="{{ url_for('auth.login') }}">Log In</a>
+      {% endif %}
+    </ul>
+  </nav>
+</header>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages(with_categories=True) %}
+    <div class="flash alert-{{ message[0] }}">{{ message[1] }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>
+<footer>
+  Made with <a href="http://flask.pocoo.org/" target="_blank" rel="noopener noreferrer">Flask</a> by <a href="https://tom.camp" target="_blank" rel="noopener noreferrer">Tom Camp</a>
+</footer>

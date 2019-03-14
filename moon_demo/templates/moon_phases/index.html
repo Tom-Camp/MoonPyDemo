@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{{ phase_data['date']|datetimeformat }}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <article class="moon">
+        <header>
+            <div>
+                <h1>{{ phase_data['name'] }}</h1>
+            </div>
+        </header>
+        <main>
+            <section id="moonstats">
+                <ul>
+                    <li>{{ phase_data['illum'] }} illuminated</li>
+                    <li>{{ phase_data['new moon'] }}</li>
+                    <li>{{ phase_data['first quarter'] }}</li>
+                    <li>{{ phase_data['full moon'] }}</li>
+                    <li>{{ phase_data['last quarter'] }}</li>
+                </ul>
+            </section>
+            <aside id="moonimage">
+                <figure>
+                    {% set image = "images/moon." + phase_data['id'] + ".png" %}
+                    <img src="{{ url_for('static', filename=image) }}" />
+                    <figcaption>Image from NASA's Scientific Visualization Studio</figcaption>
+                </figure>
+            </aside>
+        </main>
+        <section id="prevnext">
+            <a id="previous" href="{{ url_for('moon_page.other_moon', date=phase_data['prev']) }}">&#171; Prev</a>
+            <a id="next" href="{{ url_for('moon_page.other_moon', date=phase_data['next']) }}">Next &#187;</a>
+        </section>
+    </article>
+{% endblock %}
